@@ -1,5 +1,6 @@
 import time
 from django.shortcuts import render_to_response, stream_to_response
+from django.views.generic.base import StreamingTemplateView
 
 def stream(count=50):
     for _ in xrange(count):
@@ -21,3 +22,19 @@ def streaming_perftest(request, template="index.html"):
 def eager_streaming_perftest(request):
     return streaming_perftest(request, template="body.html")
 eager_streaming_perftest.eager_streaming = True
+
+# generic views version
+class StreamingTemplatePerformanceTestView(StreamingTemplateView):
+    template_name = "index.html"
+
+    def get_context_data(self, **kwargs):
+        time.sleep(1)
+        return { 'range': stream() }
+
+def generic_stream(request):
+    return StreamingTemplatePerformanceTestView.as_view()(request)
+
+def eager_generic_stream(request):
+    return StreamingTemplatePerformanceTestView.as_view(template_name="body.html")(request)
+eager_generic_stream.eager_streaming = True
+
