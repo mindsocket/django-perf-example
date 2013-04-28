@@ -1,0 +1,2 @@
+-e git+ssh://git@github.com/mindsocket/django.git@t13910#egg=Django
+gunicorn==0.17.4
