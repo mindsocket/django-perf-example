@@ -23,7 +23,7 @@ def perftest(request, func=render_to_response, stream_func=stream, template="ind
     # Simulate some slow work
     time.sleep(1)
     # Now render
-    return func("index.html", { 'range': stream_func() })
+    return func(template, { 'range': stream_func() })
 
 # stream_to_response version - still affected by initial 1 second delay
 def streaming_perftest(request, template="index.html", **kwargs):

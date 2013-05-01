@@ -37,6 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'perf_example', # For templates only
+    'django.contrib.staticfiles',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,8 +51,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'perf_example.middleware.EagerStreamingResponseMiddleware'
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'perf_example.middleware.EagerStreamingResponseMiddleware',
 )
+
+STATIC_URL = '/static/'
 
 ROOT_URLCONF = 'perf_example.urls'
 
